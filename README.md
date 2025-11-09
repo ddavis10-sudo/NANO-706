@@ -1,101 +1,28 @@
-# Assignment 2
-This assignment is in 2 folds. The first one labelled as HW1 and the second labelled as HW2. In HW1 I analysed a wine dataset using a model in python. I also predicted and evaluated the model's precison and accuracy. Finally I used python to create a decison tree and a confusion matrix. In HW2 I created a model in python, trained the model, analysed the model and set up an enironment to visualize my image using yolov5.
-# Table Content
-  * Technologies Used
-  * Installation
-  * Usage
-  * Project Structures
-  * Examples
-  * Assignment Requirements
-  * Contributing
-  * License
-  * Contact
-# Technologies Used
-* Language: Python 3.9+
-* Libraries: 
-- [ ] Graphviz: For data visualization
-- [ ] Pydot: For visualizing data
-- [ ] Pytorch: For machine learning libraries
-- [ ] Pandas: For data manipulation
-- [ ] CV2: For openCV library
-- [ ] Matplotlib: For data visualization
-- [ ] Seaborn: For statistical graphs
-- [ ] Scikit-learn (sklearn): For machine learning
-- [ ] NumPy: For numerical computations
-# HW1
-1. Load Dataset and Visualize Scatter Plot:
-```# Load the Wine Quality dataset
-wine = datasets.load_wine()
-X = wine.data  # Features
-Y = wine.target  # Target variable (wine quality)
+For part one of the homework, I used a wine quality dataset to look at different wines and their quality. The first step is to load the libraries and the dataset to gain the information needed for the analysis. Once the data is loaded, the next step is to visualize it. In this specific plot, alcohol and malic acid were used for the plot to detect the quality.
+![image alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20092314.png?raw=true)
 
-# Create a DataFrame for better visualization
-wine_df = pd.DataFrame(X, columns=wine.feature_names)
-wine_df['target'] = Y
+After getting a visual of the data, it's important to standardize the features and split the data because it can rescale the features to avoid bias and improve the accuracy no matter how many times the model is ran. This dataset will be split 80/20, which represents 80% training and 20% testing.
+![image alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20092631.png?raw=true)
 
-# Display the feature names
-print("Feature names:", wine.feature_names)
-# Display the first few rows of the dataset
-wine_df.head()
-# Visualize the data
-plt.figure(figsize=(10, 6))
-plt.scatter(wine_df['alcohol'], wine_df['malic_acid'], c=wine_df['target'], cmap='coolwarm', s=30)
+Next it's time to train the SVM model, this predicts how well the model will perform, and then evaluate it. This helps classify accurate data and once the code is ran the accuracy resulted in 0.97 which is very close to 1.
+![image a;t](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20092719.png?raw=true)
 
-plt.title(f"Wine Quality Dataset")
-plt.xlabel('alcohol') 
-plt.ylabel('malic_acid')
-plt.colorbar(ticks=np.unique(Y), label='Quality')
-plt.show()
+Now that the accuracy of the SVM model is given, next is the Decision Tree model. This model breaks down the directive that's used to predict the quality of wine. To generate this model, you would need to train the model, predict the results, calculate the accuracy, and visualize the data. The Decision Tree model has an accuracy of 0.94, which is accurate but less accurate compared to the svm model.
+![image alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20092944.png?raw=true)
 
-# Standardize features
-scaler = StandardScaler()
-X2 = scaler.fit_transform(X)
+The final model to train and test is the Logistic Regression model. This is important to use in the wine dataset because it pays attention to the chemical properties and its relationship with the outcome of the wine and it's overall quality. Just like the other models, you have to train and predict the data, but with Logistic regression you have to include the Decision tree model. After initializing and predicting the Decision tree model into the logistic regression model, then you calculate the accuracy of the Logistic regression model. The result of the accuracy is 1.00, which is the most accurate result out of all three models.
+![image_alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20093046.png?raw=true)
 
-# Split the data
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
+For part two of the homework, I used the MNIST dataset to be able to detect objects/pictures and use them as resources for deeper learning. There were three classifiers used to detect the accuracy which was Random Forest, MLP (Neural Network), and Logistic regression that was used in Part one. After coding each classifier, the results show the accuracy of each. MLP Neural network has the highest accuracy at 97.86%, following at 96.75% is Random Forest, and lastly Logistic Regression has an accuracy of 92.02%.
+![image_alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20093534.png?raw=true)
 
-# Train SVM
-svm = SVC(kernel='linear')
-svm.fit(X_train, Y_train)  
+The next step is using the YOLO model. The YOLO model is significant because this model is known for it's object detection in real time. Once you insert the picture used for detection, you insert it into the yolo model.
+![image_alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20095826.png?raw=true)
 
-Y_pred = svm.predict(X_test)
+After inserting the picture, you start coding to generate the detection box/boxes. In this process the coding is to create the detection box/boxes and draw bounding boxes around the object of interest. Once you draw the bounding box, it has to be saved and displayed with detections to show if it focused on the right object in the image.
 
-# Make predictions and calculate accuracy
-accuracy = accuracy_score(Y_test , Y_pred)
-print(f"Accuracy of the SVM model: {accuracy:.2f}")
-```
-# Results
- 
+![image_alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20095455.png?raw=true)
+Finally, the image is now displayed with the bounding box that has detected my face in the picture. From the previous coding, it tells you the color of the bounding box, which is green. This shows that in that bounding box there is no other detectable objects other than my face.
 
-# Assignment Requirements
-### Completed Requirements
-
-* [x] Requirement 1: Decision tree
-* [x] Requirement 2: Logistic Regression
-* [x] Requirement 3: Prediction and Evaluation
-* [x] Requirement 4: Yolov5
-* [x] Requirement 5: Building Models
-
-# Known Issues
-* Issue 1: One of the primary challenges encountered is ensuring that all models are well-defined before execution. Ambiguities in model structure, parameters, or variable definitions can lead to inconsistent outputs or execution errors. To mitigate this, it is essential to: Clearly define all input parameters, boundary conditions, and model variables prior to simulation. Verify consistency between theoretical assumptions and the implemented code. Maintain organized documentation outlining each model’s purpose, scope, and dependencies. This ensures that the simulation or computation reflects the intended design and minimizes debugging complexity later in the workflow.
-* Issue 2: Another common issue involves library dependencies that must be executed in sequence or initialized at the top of the script for the code to function correctly. Some libraries load critical configurations or global variables that downstream functions rely on.
-# Future Improvements
- * Error handling lacks sufficient diagnostic detail, making debugging unnecessarily time-consuming. Enhancing error message specificity and integrating contextual suggestions will improve user experience and accelerate issue resolution.
- * The system currently executes tasks sequentially, resulting in slower performance during complex or high-volume computations. Implementing parallel or distributed processing will enhance computational efficiency and reduce runtime for large datasets.
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-# Acknowledgments
-* Course: NANO 706 - System and Computational BIOL
-* Instructor: Dr. Sam Oliviera PhD 
-* Institution: North Carolina A & T University
-* Semester: Fall 2025
-# Contact
-Your Name
-
-Email: ddavis10@aggies.ncat.edu
-GitHub: https://github.com/ddavis10-sudo
-
-Note: This project was created as part of an academic assignment. Please refer to your institution's academic integrity policy before using this code.
+![image_alt](https://github.com/SetturaM/NANO-706-HW-FINAL/blob/main/Screenshot%202025-10-30%20095505.png?raw=true)
